@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>قائمة طعام دكة الشعلة</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    /* المتغيرات (مستوحاة من ألوان المنيو) */
+    :root{
+      --bg:#0f0f10; /* خلفية داكنة جداً */
+      --panel:#1c1c1c; /* خلفية البلوكات */
+      --accent:#f0a23a; /* البرتقالي (لون التمييز) */
+      --muted:#b0b0b0; /* لون ثانوي للنصوص */
+      --shadow:rgba(0,0,0,0.8);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:'Cairo',sans-serif;
+      background-color: var(--bg);
+      color:#fff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding:20px;
+    }
+
+    .container{
+      max-width:1200px;
+      margin:0 auto;
+      background:var(--panel);
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow:0 15px 40px var(--shadow);
+    }
+    
+    /* شريط التنقل للمنيو */
+    .nav-bar{
+        background: #2a2a2a;
+        padding: 20px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 3px solid var(--accent);
+    }
+    .nav-bar h2{
+        color: var(--accent);
+        margin: 0;
+        font-weight: 700;
+        font-size: 28px;
+    }
+    .back-btn{
+      background:var(--accent);
+      color:var(--bg);
+      border:0;
+      padding:8px 15px;
+      border-radius:8px;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-weight:600;
+      transition:transform .15s ease, opacity .15s ease;
+      text-decoration:none; 
+      font-size: 14px;
+    }
+    .back-btn:hover{transform:translateY(-1px);opacity:0.9}
+    .back-btn svg{width:18px;height:18px;fill:none;stroke:var(--bg);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+
+    /* منطقة القائمة */
+    .menu-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+      gap:25px;
+      padding:35px;
+      background:var(--bg);
+    }
+
+    .menu-category{
+      background:#2a2a2a;
+      padding:20px;
+      border-radius:12px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.4);
+      border-top:4px solid var(--accent);
+    }
+    .category-title{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:15px;
+      padding-bottom:8px;
+      border-bottom:1px dashed #3a3a3a;
+    }
+    .category-title h3{margin:0;color:var(--accent);font-size:24px;font-weight:700}
+    .small-muted{color:var(--muted);font-size:14px}
+
+    .menu-item{
+      display:flex;
+      justify-content:space-between;
+      padding:12px 0;
+      border-bottom:1px solid #333;
+      font-size:16px;
+      align-items:center;
+    }
+    .menu-item:last-child{border-bottom:0; padding-bottom:0}
+    .item-name-calories{flex:1; padding-left:10px}
+    .item-name{font-weight:600; color:#fff}
+    .item-details{color:var(--muted); font-size:13px; margin-top:2px}
+    .item-price{
+      color:var(--accent);
+      font-weight:700;
+      font-size:18px;
+      background:#3a3a3a;
+      padding:4px 8px;
+      border-radius:6px;
+      min-width:60px;
+      text-align:center;
+    }
+
+    /* التذييل (Footer) */
+    .footer{
+      padding:18px 40px;
+      background:#161616;
+      color:var(--muted);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font-size:14px;
+      border-top:1px solid #333;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 992px) {
+      .menu-grid{padding:25px; gap:20px}
+      .nav-bar{flex-direction: column; gap: 10px; padding: 20px 25px;}
+      .footer{flex-direction:column; gap:10px}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="nav-bar">
+        <h2>قائمة طعام دكة الشعلة</h2>
+        <div class="nav-actions">
+            <a class="back-btn" href="index.html">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <span>العودة للصفحة الرئيسية</span>
+            </a>
+            <a class="nav-btn" href="location.html" style="background: #3a3a3a; color: #fff;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucude-map-pin" style="stroke: #fff;"><path d="M21 10c0 6-9 11-9 11s-9-5-9-11a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span>الموقع</span>
+            </a>
+        </div>
+    </header>
+
+
+    <section class="menu-grid">
+
+      <div class="menu-category">
+        <div class="category-title">
+          <h3>الساندويتشات</h3>
+          <span class="small-muted">السعر | السعرات</span>
+        </div>
+        <div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">جبن مشكل</div>
+              <div class="item-details">السعرات: 204</div>
+            </div>
+            <div class="item-price">3 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">شكشوكة</div>
+              <div class="item-details">السعرات: 268</div>
+            </div>
+            <div class="item-price">2 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">بيض مسلوق</div>
+              <div class="item-details">السعرات: 110</div>
+            </div>
+            <div class="item-price">2 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">بيض مقلي | صامولي</div>
+              <div class="item-details">السعرات: 193</div>
+            </div>
+            <div class="item-price">2 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">بيض مقلي | مدور</div>
+              <div class="item-details">السعرات: 195</div>
+            </div>
+            <div class="item-price">3 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">فلافل</div>
+              <div class="item-details">السعرات: 130</div>
+            </div>
+            <div class="item-price">4 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">نقانق</div>
+              <div class="item-details">السعرات: 230</div>
+            </div>
+            <div class="item-price">4 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">دجاج</div>
+              <div class="item-details">السعرات: 179</div>
+            </div>
+            <div class="item-price">4 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">كبدة</div>
+              <div class="item-details">السعرات: 169</div>
+            </div>
+            <div class="item-price">4 ر.س</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-category">
+        <div class="category-title">
+          <h3>برجر وأكثر</h3>
+          <span class="small-muted">السعر | السعرات</span>
+        </div>
+        <div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">برجر دجاج عادي</div>
+              <div class="item-details">السعرات: 417</div>
+            </div>
+            <div class="item-price">7 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">برجر دجاج جامبو</div>
+              <div class="item-details">السعرات: 379</div>
+            </div>
+            <div class="item-price">9 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">برجر لحم عادي</div>
+              <div class="item-details">السعرات: 289</div>
+            </div>
+            <div class="item-price">7 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">برجر لحم جامبو</div>
+              <div class="item-details">السعرات: 334</div>
+            </div>
+            <div class="item-price">9 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">فيليه دجاج (بخبز البطاطس)</div>
+              <div class="item-details">السعرات: 334</div>
+            </div>
+            <div class="item-price">9.50 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">زنجر دجاج حار (بخبز البطاطس)</div>
+              <div class="item-details">السعرات: 305</div>
+            </div>
+            <div class="item-price">9.50 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">ربيان مقلي (بخبز البطاطس)</div>
+              <div class="item-details">السعرات: 347</div>
+            </div>
+            <div class="item-price">8 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">سبيشل برجر لحم جامبو بالترافل</div>
+              <div class="item-details">السعرات: 350</div>
+            </div>
+            <div class="item-price">11 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">سبيشل فيليه دجاج بالترافل (حار - عادي)</div>
+              <div class="item-details">السعرات: 289</div>
+            </div>
+            <div class="item-price">10 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">وجبة (مشروب غازي - بطاطس)</div>
+              <div class="item-details">السعرات: 315</div>
+            </div>
+            <div class="item-price">7 ر.س</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-category">
+        <div class="category-title">
+          <h3>شباتي</h3>
+          <span class="small-muted">السعر | السعرات</span>
+        </div>
+        <div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">جبن</div>
+              <div class="item-details">السعرات: 240</div>
+            </div>
+            <div class="item-price">4 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">بيض جبن</div>
+              <div class="item-details">السعرات: 275</div>
+            </div>
+            <div class="item-price">6 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">جبن وشيبس عمان</div>
+              <div class="item-details">السعرات: 310</div>
+            </div>
+            <div class="item-price">5 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">كبدة</div>
+              <div class="item-details">السعرات: 295</div>
+            </div>
+            <div class="item-price">7.50 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">دجاج</div>
+              <div class="item-details">السعرات: 309</div>
+            </div>
+            <div class="item-price">5 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">زنجر ( حار - عادي )</div>
+              <div class="item-details">السعرات: 248</div>
+            </div>
+            <div class="item-price">8 ر.س</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-category">
+        <div class="category-title">
+          <h3>أطباق جانبية وإضافات</h3>
+          <span class="small-muted">السعر | السعرات</span>
+        </div>
+        <div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">بطاطس عادي</div>
+              <div class="item-details">السعرات: 122</div>
+            </div>
+            <div class="item-price">6 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">بطاطس كرسبي</div>
+              <div class="item-details">السعرات: 130</div>
+            </div>
+            <div class="item-price">8.50 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">سمبوسة</div>
+              <div class="item-details">الأنواع: (خضار - لحم - جبن - بيتزا - دجاج)</div>
+            </div>
+            <div class="item-price">1 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">إضافة جبن</div>
+            </div>
+            <div class="item-price">1 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">إضافة شيبس</div>
+            </div>
+            <div class="item-price">1 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">إضافة بيض</div>
+            </div>
+            <div class="item-price">1.50 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">إضافة خبز البطاطس</div>
+            </div>
+            <div class="item-price">1 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">إضافة صوص ترافل</div>
+            </div>
+            <div class="item-price">1 ر.س</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="menu-category">
+        <div class="category-title">
+          <h3>المشروبات الساخنة</h3>
+          <span class="small-muted">السعر | السعرات</span>
+        </div>
+        <div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">شاي حليب</div>
+              <div class="item-details">السعرات: 370</div>
+            </div>
+            <div class="item-price">2 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">شاي مخصوص</div>
+              <div class="item-details">السعرات: 18</div>
+            </div>
+            <div class="item-price">2 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">قهوة اليوم</div>
+              <div class="item-details">السعرات: 12</div>
+            </div>
+            <div class="item-price">5 ر.س</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-category">
+        <div class="category-title">
+          <h3>المشروبات الباردة</h3>
+          <span class="small-muted">السعر | السعرات</span>
+        </div>
+        <div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">موهيتو فراولة | توت (سفن اب - ريتا)</div>
+              <div class="item-details">السعرات: 48-40</div>
+            </div>
+            <div class="item-price">10 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">عصير</div>
+              <div class="item-details">السعرات: 110</div>
+            </div>
+            <div class="item-price">2 ر.س</div>
+          </div>
+          <div class="menu-item">
+            <div class="item-name-calories">
+              <div class="item-name">مشروبات غازية</div>
+              <div class="item-details">السعرات: 40</div>
+            </div>
+            <div class="item-price">3 ر.س</div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <footer class="footer">
+      <div>© كل الحقوق محفوظة — دكة الشعلة</div>
+      <div class="small-muted">الموقع: الدمام - حي الشعلة | هاتف الطلبات: +966 55 339 4440</div>
+    </footer>
+  </div>
+</body>
+</html>
